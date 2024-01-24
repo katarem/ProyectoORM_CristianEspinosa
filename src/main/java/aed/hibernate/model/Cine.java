@@ -2,16 +2,23 @@ package aed.hibernate.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Cine")
 public class Cine {
-    
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cine_id")
+    private int id;
     @Column(name = "cine_nombre")
     private String nombre;
     @Column(name = "cine_calle")
@@ -20,9 +27,15 @@ public class Cine {
     private int numero;
     @Column(name = "cine_telefono")
     private int telefono;
-    @Column(name = "cine_tarifas")
+
+    @OneToMany(mappedBy = "cine", orphanRemoval = true)
     private List<Tarifa> tarifas;
-    
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
     public String getNombre() {
         return nombre;
     }
@@ -53,54 +66,11 @@ public class Cine {
     public void setTarifas(List<Tarifa> tarifas) {
         this.tarifas = tarifas;
     }
-    
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-        result = prime * result + ((calle == null) ? 0 : calle.hashCode());
-        result = prime * result + numero;
-        result = prime * result + telefono;
-        result = prime * result + ((tarifas == null) ? 0 : tarifas.hashCode());
-        return result;
-    }
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Cine other = (Cine) obj;
-        if (nombre == null) {
-            if (other.nombre != null)
-                return false;
-        } else if (!nombre.equals(other.nombre))
-            return false;
-        if (calle == null) {
-            if (other.calle != null)
-                return false;
-        } else if (!calle.equals(other.calle))
-            return false;
-        if (numero != other.numero)
-            return false;
-        if (telefono != other.telefono)
-            return false;
-        if (tarifas == null) {
-            if (other.tarifas != null)
-                return false;
-        } else if (!tarifas.equals(other.tarifas))
-            return false;
-        return true;
-    }
     @Override
     public String toString() {
-        return "Cine [nombre=" + nombre + ", calle=" + calle + ", numero=" + numero + ", telefono=" + telefono
-                + ", tarifas=" + tarifas + "]";
+        return "Cine [id=" + id + ", nombre=" + nombre + ", calle=" + calle + ", numero=" + numero + ", telefono="
+                + telefono + ", tarifas=" + tarifas + "]";
     }
-
     
     
 }

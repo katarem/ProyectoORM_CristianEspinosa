@@ -31,7 +31,7 @@ public class DBManager {
     public static boolean insertEntity(Object o){
         try{
             sesion.beginTransaction();
-            sesion.save(o);
+            sesion.persist(o);
             sesion.getTransaction().commit();
             return true;
         } catch(Exception e){
@@ -42,7 +42,7 @@ public class DBManager {
     public static boolean removeById(Object o){
         try {
             sesion.beginTransaction();
-            sesion.delete(o);
+            sesion.remove(o);
             sesion.getTransaction().commit();
             return true;
         } catch (Exception e) {
@@ -61,6 +61,10 @@ public class DBManager {
            e.printStackTrace();
            return false;
        }
+    }
+
+    public static <T> Object getSessionObjectById(Class<T> clase, int id){
+        return sesion.get(clase.getName(), id);
     }
 
 }
