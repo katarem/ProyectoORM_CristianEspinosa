@@ -5,6 +5,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,8 +13,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Cine")
-public class Cine {
+@Table(name = "cine")
+public class Cine{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +28,26 @@ public class Cine {
     private int numero;
     @Column(name = "cine_telefono")
     private int telefono;
-
-    @OneToMany(mappedBy = "cine", orphanRemoval = true)
+    
+    @OneToMany(mappedBy = "cine", cascade = CascadeType.ALL)
     private List<Tarifa> tarifas;
-    public int getId() {
+    
+    @OneToMany(mappedBy = "cine", cascade = CascadeType.ALL)
+    private List<Pase> pases;
+    
+    public Cine() {}
+    
+    public Cine(int id) {this.id = id;}
+    
+    public Cine(String nombre, String calle, int numero, int telefono) {
+		super();
+		this.nombre = nombre;
+		this.calle = calle;
+		this.numero = numero;
+		this.telefono = telefono;
+	}
+    
+	public int getId() {
         return id;
     }
     public void setId(int id) {
@@ -66,11 +83,31 @@ public class Cine {
     public void setTarifas(List<Tarifa> tarifas) {
         this.tarifas = tarifas;
     }
+    
+    public List<Pase> getPases() {
+        return pases;
+    }
+    public void setPases(List<Pase> pases) {
+        this.pases = pases;
+    }
+    public void addTarifa(Tarifa t){
+        this.tarifas.add(t);
+    }
+    public void removeTarifa(Tarifa t){
+        this.tarifas.remove(t);
+    }
+    public void addPase(Pase p){
+        this.pases.add(p);
+    }
+    public void removePase(Pase p){
+        this.pases.remove(p);
+    }
     @Override
     public String toString() {
         return "Cine [id=" + id + ", nombre=" + nombre + ", calle=" + calle + ", numero=" + numero + ", telefono="
-                + telefono + ", tarifas=" + tarifas + "]";
+                + telefono + ", tarifas=" + tarifas + ", pases=" + pases + "]";
     }
+
     
     
 }

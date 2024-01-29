@@ -6,24 +6,24 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import aed.hibernate.model.Tarifa;
+import aed.hibernate.model.Protagonista;
 
-public class TarifaRepository implements Repository<Tarifa>{
+public class ProtagonistaRepository implements Repository<Protagonista>{
 	
 	Configuration configuration;
 	SessionFactory sessionFactory;
 	
 	
-	public TarifaRepository() {
-		configuration = new Configuration();
-		configuration.configure("hibernate.cfg.xml");
-		sessionFactory = configuration.buildSessionFactory();
+	public ProtagonistaRepository() {
+		 configuration = new Configuration();
+		 configuration.configure("hibernate.cfg.xml");
+		 sessionFactory = configuration.buildSessionFactory();
 	}
 	
 	
 
     @Override
-    public boolean insert(Tarifa t) {
+    public boolean insert(Protagonista t) {
         try(Session session  = sessionFactory.openSession()) {
         	session.beginTransaction();
         	session.persist(t);
@@ -38,7 +38,7 @@ public class TarifaRepository implements Repository<Tarifa>{
     @Override
     public boolean remove(int id) {
        try(Session session = sessionFactory.openSession()) {
-    	   	Tarifa cine = session.get(Tarifa.class, id);
+    	   	Protagonista cine = session.get(Protagonista.class, id);
     	   	session.beginTransaction();
     	   	session.remove(cine);
     	   	session.getTransaction().commit();
@@ -50,7 +50,7 @@ public class TarifaRepository implements Repository<Tarifa>{
     }
 
     @Override
-    public boolean update(int id, Tarifa entity) {
+    public boolean update(int id, Protagonista entity) {
         try(Session session = sessionFactory.openSession()) {
         	entity.setId(id);
             session.beginTransaction();
@@ -64,10 +64,10 @@ public class TarifaRepository implements Repository<Tarifa>{
     }
 
     @Override
-    public Tarifa getById(int id) {
+    public Protagonista getById(int id) {
         try(Session session = sessionFactory.openSession()) {
         	session.beginTransaction();
-        	var t =session.get(Tarifa.class, id);
+        	var t =session.get(Protagonista.class, id);
         	session.getTransaction().commit();
         	return t;
         } catch(Exception e) {
@@ -77,11 +77,11 @@ public class TarifaRepository implements Repository<Tarifa>{
     }
 
     @Override
-    public List<Tarifa> getAll() {
+    public List<Protagonista> getAll() {
        try(Session session = sessionFactory.openSession()) {
     	   session.beginTransaction();
-    	   var query = String.format("from %s",Tarifa.class.getName());
-    	   var t = session.createQuery(query,Tarifa.class).list();
+    	   var query = String.format("from %s",Protagonista.class.getName());
+    	   var t = session.createQuery(query,Protagonista.class).list();
     	   session.getTransaction().commit();
     	   return t;
        } catch (Exception e) {

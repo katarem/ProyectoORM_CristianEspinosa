@@ -1,14 +1,24 @@
 package aed.hibernate.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Pelicula")
-public class Pelicula {
+public class Pelicula{
     @Id
+    @Column(name = "pelicula_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     @Column(name = "pelicula_titulo")
     private String titulo;
     @Column(name = "pelicula_director")
@@ -17,9 +27,34 @@ public class Pelicula {
     private String clasificacion;
     @Column(name = "pelicula_genero")
     private String genero;
+    @Column(name = "pelicula_caratula")
+    private String caratula = "";
     @Column(name = "pelicula_protagonista")
-    private String protagonista;
+    @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Protagonista> protagonistas;
+    @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Pase> pases;
     
+    public Pelicula() {}
+
+    public Pelicula(int id) {}
+
+    public Pelicula(String titulo, String director, String clasificacion, String genero, String caratula) {
+		super();
+		this.titulo = titulo;
+		this.director = director;
+		this.clasificacion = clasificacion;
+		this.genero = genero;
+		this.caratula = caratula;
+	}
+
+	public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }  
+
     public String getTitulo() {
         return titulo;
     }
@@ -44,63 +79,44 @@ public class Pelicula {
     public void setGenero(String genero) {
         this.genero = genero;
     }
-    public String getProtagonista() {
-        return protagonista;
+    
+    public List<Protagonista> getProtagonistas() {
+		return protagonistas;
+	}
+
+	public void setProtagonistas(List<Protagonista> protagonistas) {
+		this.protagonistas = protagonistas;
+	}
+
+	public List<Pase> getPases() {
+        return pases;
     }
-    public void setProtagonista(String protagonista) {
-        this.protagonista = protagonista;
+    public void setPases(List<Pase> pases) {
+        this.pases = pases;
     }
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
-        result = prime * result + ((director == null) ? 0 : director.hashCode());
-        result = prime * result + ((clasificacion == null) ? 0 : clasificacion.hashCode());
-        result = prime * result + ((genero == null) ? 0 : genero.hashCode());
-        result = prime * result + ((protagonista == null) ? 0 : protagonista.hashCode());
-        return result;
+    public void addPase(Pase p){
+        this.pases.add(p);
     }
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Pelicula other = (Pelicula) obj;
-        if (titulo == null) {
-            if (other.titulo != null)
-                return false;
-        } else if (!titulo.equals(other.titulo))
-            return false;
-        if (director == null) {
-            if (other.director != null)
-                return false;
-        } else if (!director.equals(other.director))
-            return false;
-        if (clasificacion == null) {
-            if (other.clasificacion != null)
-                return false;
-        } else if (!clasificacion.equals(other.clasificacion))
-            return false;
-        if (genero == null) {
-            if (other.genero != null)
-                return false;
-        } else if (!genero.equals(other.genero))
-            return false;
-        if (protagonista == null) {
-            if (other.protagonista != null)
-                return false;
-        } else if (!protagonista.equals(other.protagonista))
-            return false;
-        return true;
+    public void removePase(Pase p){
+        this.pases.remove(p);
     }
-    @Override
+    
+    public String getCaratula() {
+		return caratula;
+	}
+
+	public void setCaratula(String caratula) {
+		this.caratula = caratula;
+	}
+
+	@Override
     public String toString() {
-        return "Pelicula [titulo=" + titulo + ", director=" + director + ", clasificacion=" + clasificacion
-                + ", genero=" + genero + ", protagonista=" + protagonista + "]";
-    }    
+        return "Pelicula [id=" + id + ", titulo=" + titulo + ", director=" + director + ", clasificacion="
+                + clasificacion + ", genero=" + genero + "]";
+    }
+    
+      
+
+    
     
 }

@@ -6,24 +6,24 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import aed.hibernate.model.Tarifa;
+import aed.hibernate.model.Pase;
 
-public class TarifaRepository implements Repository<Tarifa>{
+public class PaseRepository implements Repository<Pase>{
 	
 	Configuration configuration;
 	SessionFactory sessionFactory;
 	
 	
-	public TarifaRepository() {
-		configuration = new Configuration();
-		configuration.configure("hibernate.cfg.xml");
-		sessionFactory = configuration.buildSessionFactory();
+	public PaseRepository() {
+		 configuration = new Configuration();
+		 configuration.configure("hibernate.cfg.xml");
+		 sessionFactory = configuration.buildSessionFactory();
 	}
 	
 	
 
     @Override
-    public boolean insert(Tarifa t) {
+    public boolean insert(Pase t) {
         try(Session session  = sessionFactory.openSession()) {
         	session.beginTransaction();
         	session.persist(t);
@@ -38,7 +38,7 @@ public class TarifaRepository implements Repository<Tarifa>{
     @Override
     public boolean remove(int id) {
        try(Session session = sessionFactory.openSession()) {
-    	   	Tarifa cine = session.get(Tarifa.class, id);
+    	   	Pase cine = session.get(Pase.class, id);
     	   	session.beginTransaction();
     	   	session.remove(cine);
     	   	session.getTransaction().commit();
@@ -50,7 +50,7 @@ public class TarifaRepository implements Repository<Tarifa>{
     }
 
     @Override
-    public boolean update(int id, Tarifa entity) {
+    public boolean update(int id, Pase entity) {
         try(Session session = sessionFactory.openSession()) {
         	entity.setId(id);
             session.beginTransaction();
@@ -64,10 +64,10 @@ public class TarifaRepository implements Repository<Tarifa>{
     }
 
     @Override
-    public Tarifa getById(int id) {
+    public Pase getById(int id) {
         try(Session session = sessionFactory.openSession()) {
         	session.beginTransaction();
-        	var t =session.get(Tarifa.class, id);
+        	var t =session.get(Pase.class, id);
         	session.getTransaction().commit();
         	return t;
         } catch(Exception e) {
@@ -77,11 +77,11 @@ public class TarifaRepository implements Repository<Tarifa>{
     }
 
     @Override
-    public List<Tarifa> getAll() {
+    public List<Pase> getAll() {
        try(Session session = sessionFactory.openSession()) {
     	   session.beginTransaction();
-    	   var query = String.format("from %s",Tarifa.class.getName());
-    	   var t = session.createQuery(query,Tarifa.class).list();
+    	   var query = String.format("from %s",Pase.class.getName());
+    	   var t = session.createQuery(query,Pase.class).list();
     	   session.getTransaction().commit();
     	   return t;
        } catch (Exception e) {
