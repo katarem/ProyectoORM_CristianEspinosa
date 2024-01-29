@@ -6,7 +6,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import aed.hibernate.model.Cine;
 import aed.hibernate.model.Pase;
+import aed.hibernate.model.Pelicula;
 
 public class PaseRepository implements Repository<Pase>{
 	
@@ -38,9 +40,19 @@ public class PaseRepository implements Repository<Pase>{
     @Override
     public boolean remove(int id) {
        try(Session session = sessionFactory.openSession()) {
-    	   	Pase cine = session.get(Pase.class, id);
+    	   	Pase pase = session.get(Pase.class, id);
+    	   	//desacoplamos el pase de sus padres
+    	   	Cine cine = session.get(Cine.class, pase.getCine().getId());
+    	   	Pelicula pelicula = session.get(Pelicula.class, pase.getPelicula().getId());
+    	   	
+    	   	cine.removePase(pase);
+    	   	pelicula.removePase(pase);
+    	   	
+    	   	session.merge(cine);
+    	   	session.merge(pelicula);
+    	   	
     	   	session.beginTransaction();
-    	   	session.remove(cine);
+    	   	session.remove(pase);
     	   	session.getTransaction().commit();
             return true;
        } catch (Exception e) {

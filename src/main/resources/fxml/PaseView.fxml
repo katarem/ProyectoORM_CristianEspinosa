@@ -17,6 +17,8 @@
             <TextField fx:id="idField" />
             <Label layoutX="44.0" layoutY="138.0" text="FECHA" />
             <TextField fx:id="fechaField" layoutX="10.0" layoutY="147.0" />
+            <Label layoutX="42.0" layoutY="118.0" text="HORA" />
+            <TextField fx:id="horaField" layoutX="15.0" layoutY="135.0" />
             <Label text="ID CINE" />
             <TextField fx:id="cineIdField" />
             <Label layoutX="31.0" layoutY="202.0" text="ID PELICULA" />

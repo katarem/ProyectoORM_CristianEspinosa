@@ -1,41 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="peliculaImageView" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="tituloPelicula" layoutX="477.0" layoutY="72.0" text="Label" />
-      <Label fx:id="generoPelicula" layoutX="477.0" layoutY="116.0" text="Label" />
-      <Label fx:id="directorPelicula" layoutX="477.0" layoutY="155.0" text="Label" />
-      <Label fx:id="prota1Label" layoutX="293.0" layoutY="323.0" text="Label" />
-      <Label fx:id="prota2Label" layoutX="387.0" layoutY="323.0" text="Label" />
-      <Label fx:id="prota3Label" layoutX="491.0" layoutY="323.0" text="Label" />
-      <Label layoutX="321.0" layoutY="65.0" text="Título">
+      <ImageView fx:id="peliculaImageView" fitHeight="280.0" fitWidth="250.0" layoutX="21.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="tituloPelicula" layoutX="381.0" layoutY="80.0" text="Label">
+         <font>
+            <Font size="17.0" />
+         </font></Label>
+      <Label fx:id="generoPelicula" layoutX="381.0" layoutY="111.0" text="Label">
+         <font>
+            <Font size="17.0" />
+         </font></Label>
+      <Label fx:id="directorPelicula" layoutX="381.0" layoutY="147.0" text="Label">
+         <font>
+            <Font size="17.0" />
+         </font></Label>
+      <Label layoutX="285.0" layoutY="78.0" text="Título">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="313.0" layoutY="109.0" text="Género">
+      <Label layoutX="285.0" layoutY="109.0" text="Género">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="310.0" layoutY="148.0" text="Director">
+      <Label layoutX="285.0" layoutY="145.0" text="Director">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <ImageView fx:id="prota1ImageView" fitHeight="80.0" fitWidth="80.0" layoutX="267.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="prota2ImageView" fitHeight="80.0" fitWidth="80.0" layoutX="361.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="prota3ImageView" fitHeight="80.0" fitWidth="80.0" layoutX="465.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="346.0" layoutY="194.0" text="Reparto">
+      <Label layoutX="381.0" layoutY="285.0" text="Reparto">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
+      <VBox alignment="CENTER" layoutX="263.0" layoutY="324.0" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <ImageView fx:id="prota1ImageView" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="prota1Label" text="Label" textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="366.0" layoutY="324.0" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <ImageView fx:id="prota2ImageView" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="prota2Label" text="Label" textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="486.0" layoutY="324.0" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <ImageView fx:id="prota3ImageView" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="prota3Label" text="Label" textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+         </children>
+      </VBox>
+      <ListView fx:id="paseView" layoutX="21.0" layoutY="324.0" prefHeight="237.0" prefWidth="226.0" />
    </children>
 </Pane>

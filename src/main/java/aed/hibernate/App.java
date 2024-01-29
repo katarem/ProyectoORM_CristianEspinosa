@@ -8,6 +8,7 @@ import aed.hibernate.db.ProtagonistaRepository;
 import aed.hibernate.db.TarifaRepository;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class App extends Application{
@@ -30,6 +31,7 @@ public class App extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		App.stage = primaryStage;
+		//stage.getIcons().add(new Image(getClass().getResourceAsStream("/logo.png")));
 		startRepos();
 		HomeController homeController = new HomeController();
 		stage.setScene(new Scene(homeController.getView()));

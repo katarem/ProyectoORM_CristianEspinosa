@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import aed.hibernate.model.Pelicula;
 import aed.hibernate.model.Protagonista;
 
 public class ProtagonistaRepository implements Repository<Protagonista>{
@@ -38,9 +39,13 @@ public class ProtagonistaRepository implements Repository<Protagonista>{
     @Override
     public boolean remove(int id) {
        try(Session session = sessionFactory.openSession()) {
-    	   	Protagonista cine = session.get(Protagonista.class, id);
+    	   	Protagonista prota = session.get(Protagonista.class, id);
+    	   	
+    	   	var pelicula = session.get(Pelicula.class, prota.getPelicula().getId());
+    	   	pelicula.removeProtagonista(prota);
+    	   	session.merge(pelicula);
     	   	session.beginTransaction();
-    	   	session.remove(cine);
+    	   	session.remove(prota);
     	   	session.getTransaction().commit();
             return true;
        } catch (Exception e) {

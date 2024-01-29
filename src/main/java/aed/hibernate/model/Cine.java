@@ -32,7 +32,7 @@ public class Cine{
     @OneToMany(mappedBy = "cine", cascade = CascadeType.ALL)
     private List<Tarifa> tarifas;
     
-    @OneToMany(mappedBy = "cine", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cine", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Pase> pases;
     
     public Cine() {}

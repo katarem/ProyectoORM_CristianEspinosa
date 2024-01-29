@@ -1,10 +1,18 @@
 package aed.hibernate.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import org.hibernate.sql.ast.tree.expression.Distinct;
 
 import aed.hibernate.App;
 import aed.hibernate.model.Cine;
+import aed.hibernate.model.Pelicula;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,13 +59,25 @@ public class HomeController implements Initializable {
     	cineChoice.setItems(FXCollections.observableArrayList(cines));
     	cineChoice.setValue(cines.get(0));
     	setTarifas();
+    	setPeliculasByCine();
     	cineChoice.setOnAction(e -> {
     		setCine(cineChoice.getValue());
     		setTarifas();
+        	setPeliculasByCine();
     	});
+    }
+    
+    private void setPeliculasByCine() {
+    	var idsPelis = selectedCine.getPases().stream().map(p -> p.getPelicula().getId()).toList();
+    	var pelis = idsPelis.stream().map(id -> App.peliculaRepository.getById(id)).toList();
     	
-    	peliculasContainer.setContent(PeliculasComponent.drawPelis(App.peliculaRepository.getAll()));
-    	
+    	var filteredList = pelis.stream()
+    			.collect(Collectors.toMap(Pelicula::getId, pelicula -> pelicula,(existente,reemplazo) -> existente))
+    			.values()
+    			.stream()
+    			.toList();
+    
+    	peliculasContainer.setContent(PeliculasComponent.drawPelis(filteredList));
     }
     
     public void setCine(String cine) {
@@ -70,7 +90,7 @@ public class HomeController implements Initializable {
     	var tarifas = App.tarifaRepository.getAll()
 				.stream()
 				.filter(t -> t.getCine().getId() == selectedCine.getId())
-				.map(t -> t.getDia()).toList();
+				.map(t -> t.getDia() + " - " + t.getPrecio() + "€").toList();
 		tarifaChoice.setItems(FXCollections.observableArrayList(tarifas));
 		tarifaChoice.setValue("Elige tarifa");
     }
@@ -78,6 +98,8 @@ public class HomeController implements Initializable {
     @FXML
     private void goDB() {
     	App.stage.setScene(new Scene(new DBController().getView()));
+    	App.stage.setHeight(490);
+    	App.stage.show();
     }
     
     public BorderPane getView(){

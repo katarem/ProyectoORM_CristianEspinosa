@@ -1,6 +1,7 @@
 package aed.hibernate.model;
 
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -107,6 +108,34 @@ public class Pelicula{
 
 	public void setCaratula(String caratula) {
 		this.caratula = caratula;
+	}
+
+	public void addProtagonista(Protagonista p) {
+		this.protagonistas.add(p);
+	}
+	
+	public void removeProtagonista(Protagonista p) {
+		this.protagonistas.remove(p);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(caratula, clasificacion, director, genero, id, pases, protagonistas, titulo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pelicula other = (Pelicula) obj;
+		return Objects.equals(caratula, other.caratula) && Objects.equals(clasificacion, other.clasificacion)
+				&& Objects.equals(director, other.director) && Objects.equals(genero, other.genero) && id == other.id
+				&& Objects.equals(pases, other.pases) && Objects.equals(protagonistas, other.protagonistas)
+				&& Objects.equals(titulo, other.titulo);
 	}
 
 	@Override
